@@ -32,12 +32,6 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         ControlsUpdate(); // Inputs y Movimiento
-        if (health <= 0)
-        {
-            Debug.Log("Game Over");
-            EndGameScript endGameScript = GameObject.FindWithTag("GameOver").GetComponent<EndGameScript>();
-            endGameScript.GameOver();
-        }
     }
 
     void Awake()
@@ -57,11 +51,6 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             StartCoroutine(AttackRoutine());
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            // Pausa
         }
     }
     void Movement()
@@ -83,6 +72,12 @@ public class PlayerScript : MonoBehaviour
             canTakeDamage = false;
             Invoke(nameof(ResetDamageCooldown), damageCooldown);
             Debug.Log("Player damaged! Current health: " + health);
+            if (health <= 0)
+            {
+                Debug.Log("Game Over");
+                EndGameScript endGameScript = GameObject.FindWithTag("GameOver").GetComponent<EndGameScript>();
+                endGameScript.GameOver();
+            }
         }
     }
 
